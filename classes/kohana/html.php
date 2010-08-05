@@ -322,6 +322,28 @@ class Kohana_HTML {
 	}
 
 	/**
+	 * Wraps HTML in an abbreviation tag
+	 *
+	 * @param string $content HTML content to wrap, this parameter should be escaped if required
+	 * @param string $title Definition of the abbreviation
+	 * @param array $attributes Optional associative array of additional attributes
+	 * @return string Formatted HTML tag or the original content if no title is supplied
+	 */
+	public static function abbr($content, $title, array $attributes = array())
+	{
+		$title = trim($title);
+
+		if (empty($title))
+		{
+			return $content;
+		}
+
+		$attributes['title'] = $title;
+
+		return sprintf('<abbr%2$s>%1$s</abbr>', $content, HTML::attributes($attributes));
+	}
+
+	/**
 	 * Compiles an array of HTML attributes into an attribute string.
 	 * Attributes will be sorted using HTML::$attribute_order for consistency.
 	 *
