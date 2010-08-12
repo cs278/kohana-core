@@ -224,4 +224,39 @@ Class Kohana_HTMLTest extends Kohana_Unittest_TestCase
 			HTML::file_anchor($file, $title, $attributes, $protocol)
 		);
 	}
+
+	/**
+	 * Data provider for HTML::test_abbr()
+	 *
+	 * @return array
+	 */
+	function provider_abbr()
+	{
+		return array(
+			// Pass through text
+			array('Hello', 'Hello', '', array('class' => 'greeting')),
+			// Passthrough HTML
+			array('<strong title="Bar">Foo</strong>', '<strong title="Bar">Foo</strong>', '', array()),
+			// Basic abbreviation
+			array('<abbr title="HyperText Markup Language">HTML</abbr>', 'HTML', 'HyperText Markup Language', array()),
+			// w/ an attribute
+			array('<abbr title="PHP: Hypertext Preprocessor" class="term">PHP</abbr>', 'PHP', 'PHP: Hypertext Preprocessor', array('class' => 'term')),
+			// two titles
+			array('<abbr title="Correct">Test</abbr>', 'Test', 'Correct', array('title' => 'incorrect')),
+			// More attributes
+			array('<abbr title="Description" foo="bar" x="y" abc="123">Term</abbr>', 'Term', 'Description', array('foo' => 'bar', 'x' => 'y', 'abc' => '123')),
+		);
+	}
+
+	/**
+	 * Test for HTML::abbr()
+	 *
+	 * @test
+	 * @covers HTML::abbr()
+	 * @dataProvider provider_abbr
+	 */
+	function test_abbr($expected, $input, $title, array $attributes)
+	{
+		$this->assertSame($expected, HTML::abbr($input, $title, $attributes));
+	}
 }
