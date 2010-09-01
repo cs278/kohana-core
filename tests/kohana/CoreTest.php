@@ -64,6 +64,29 @@ class Kohana_CoreTest extends Kohana_Unittest_TestCase
 	}
 
 	/**
+	 * find_file() should not prefix a period to an empty file extension
+	 *
+	 * @test
+	 * @covers Kohana::find_file()
+	 */
+	public function test_find_file_issue_3214()
+	{
+		$input = 'classes/kohana/core.php';
+
+		$file = pathinfo($input);
+
+		$result = Kohana::find_file($file['dirname'], $file['basename'], '');
+
+		// Ensure there is no variance between the two invocations which should produce identical results
+		$this->assertSame(Kohana::find_file($file['dirname'], $file['filename'], $file['extension']), $result);
+
+		// Check that the result has the input path anchored at the end
+		// strrpos gives the position of the start of the last occurrence of the needle
+		// This check is for Windows where "foo.txt" === "foo.txt." ;)
+		$this->assertEquals(strlen($result) - strlen($input), strrpos($result, $input));
+	}
+
+	/**
 	 * Kohana::list_files() should return an array on success and an empty array on failure
 	 *
 	 * @test
