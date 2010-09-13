@@ -78,7 +78,7 @@ class Kohana_CoreTest extends Kohana_Unittest_TestCase
 	 * find_file() should not prefix a period to an empty file extension
 	 *
 	 * @test
-	 * @covers Kohana::find_file()
+	 * @covers Kohana::find_file
 	 */
 	public function test_find_file_issue_3214()
 	{
