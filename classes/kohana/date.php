@@ -384,7 +384,7 @@ class Kohana_Date {
 	 * @param   integer  "remote" timestamp
 	 * @return  string
 	 */
-	public static function fuzzy_span($timestamp, $now = time())
+	public static function fuzzy_span($timestamp, $now = null)
 	{
 		// Make sure now is set
 		$now = ($now === null) ? time() : (int) $now;
