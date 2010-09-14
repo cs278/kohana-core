@@ -384,10 +384,13 @@ class Kohana_Date {
 	 * @param   integer  "remote" timestamp
 	 * @return  string
 	 */
-	public static function fuzzy_span($timestamp)
+	public static function fuzzy_span($timestamp, $now = time())
 	{
+		// Make sure now is set
+		$now = ($now === null) ? time() : (int) $now;
+
 		// Determine the difference in seconds
-		$offset = abs(time() - $timestamp);
+		$offset = abs($now - $timestamp);
 
 		if ($offset <= Date::MINUTE)
 		{
