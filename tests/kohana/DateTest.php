@@ -350,65 +350,65 @@ Class Kohana_DateTest extends Kohana_Unittest_TestCase
 	public function provider_fuzzy_span()
 	{
 		return array(
-			array('moments ago', time() - 30),
-			array('in moments', time() + 30),
+			array('moments ago', - 30),
+			array('in moments', + 30),
 
-			array('a few minutes ago', time() - 10*60),
-			array('in a few minutes', time() + 10*60),
+			array('a few minutes ago', - 10*60),
+			array('in a few minutes', + 10*60),
 
-			array('less than an hour ago', time() - 45*60),
-			array('in less than an hour', time() + 45*60),
+			array('less than an hour ago', - 45*60),
+			array('in less than an hour', + 45*60),
 
-			array('a couple of hours ago', time() - 2*60*60),
-			array('in a couple of hours', time() + 2*60*60),
+			array('a couple of hours ago', - 2*60*60),
+			array('in a couple of hours', + 2*60*60),
 
-			array('less than a day ago', time() - 12*60*60),
-			array('in less than a day', time() + 12*60*60),
+			array('less than a day ago', - 12*60*60),
+			array('in less than a day', + 12*60*60),
 
-			array('about a day ago', time() - 30*60*60),	
-			array('in about a day', time() + 30*60*60),	
+			array('about a day ago', - 30*60*60),	
+			array('in about a day', + 30*60*60),	
 
-			array('a couple of days ago', time() - 3*24*60*60),
-			array('in a couple of days', time() + 3*24*60*60),
+			array('a couple of days ago', - 3*24*60*60),
+			array('in a couple of days', + 3*24*60*60),
 
-			array('less than a week ago', time() - 5*24*60*60),
-			array('in less than a week', time() + 5*24*60*60),
+			array('less than a week ago', - 5*24*60*60),
+			array('in less than a week', + 5*24*60*60),
 
-			array('about a week ago', time() - 9*24*60*60),
-			array('in about a week', time() + 9*24*60*60),
+			array('about a week ago', - 9*24*60*60),
+			array('in about a week', + 9*24*60*60),
 
-			array('less than a month ago', time() - 20*24*60*60),
-			array('in less than a month', time() + 20*24*60*60),
+			array('less than a month ago', - 20*24*60*60),
+			array('in less than a month', + 20*24*60*60),
 
-			array('about a month ago', time() - 40*24*60*60),
-			array('in about a month', time() + 40*24*60*60),
+			array('about a month ago', - 40*24*60*60),
+			array('in about a month', + 40*24*60*60),
 
-			array('a couple of months ago', time() - 3*30*24*60*60),
-			array('in a couple of months', time() + 3*30*24*60*60),
+			array('a couple of months ago', - 3*30*24*60*60),
+			array('in a couple of months', + 3*30*24*60*60),
 
-			array('less than a year ago', time() - 7*31*24*60*60),
-			array('in less than a year', time() + 7*31*24*60*60),
+			array('less than a year ago', - 7*31*24*60*60),
+			array('in less than a year', + 7*31*24*60*60),
 
-			array('about a year ago', time() - 18*31*24*60*60),
-			array('in about a year', time() + 18*31*24*60*60),
+			array('about a year ago', - 18*31*24*60*60),
+			array('in about a year', + 18*31*24*60*60),
 
-			array('a couple of years ago', time() - 3*12*31*24*60*60),
-			array('in a couple of years', time() + 3*12*31*24*60*60),
+			array('a couple of years ago', - 3*12*31*24*60*60),
+			array('in a couple of years', + 3*12*31*24*60*60),
 
-			array('a few years ago', time() - 5*12*31*24*60*60),
-			array('in a few years', time() + 5*12*31*24*60*60),
+			array('a few years ago', - 5*12*31*24*60*60),
+			array('in a few years', + 5*12*31*24*60*60),
 
-			array('about a decade ago', time() - 11*12*31*24*60*60),
-			array('in about a decade', time() + 11*12*31*24*60*60),
+			array('about a decade ago', - 11*12*31*24*60*60),
+			array('in about a decade', + 11*12*31*24*60*60),
 
-			array('a couple of decades ago', time() - 20*12*31*24*60*60),
-			array('in a couple of decades', time() + 20*12*31*24*60*60),
+			array('a couple of decades ago', - 20*12*31*24*60*60),
+			array('in a couple of decades', + 20*12*31*24*60*60),
 
-			array('several decades ago', time() - 50*12*31*24*60*60),
-			array('in several decades', time() + 50*12*31*24*60*60),
+			array('several decades ago', - 50*12*31*24*60*60),
+			array('in several decades', + 50*12*31*24*60*60),
 
-			array('a long time ago', time() - pow(10,10)),
-			array('in a long time', time() + pow(10,10)),
+			array('a long time ago', - pow(10,10)),
+			array('in a long time', + pow(10,10)),
 		);
 	}
 
@@ -420,11 +420,13 @@ Class Kohana_DateTest extends Kohana_Unittest_TestCase
 	 * @param string $expected Expected output
 	 * @param integer $timestamp Timestamp to use
 	 */
-	public function test_fuzzy_span($expected, $timestamp)
+	public function test_fuzzy_span($expected, $offset)
 	{
+		$now = time();
+
 		$this->assertSame(
 			$expected,
-			Date::fuzzy_span($timestamp)
+			Date::fuzzy_span($now + $offset, $now)
 		);
 	}
 
