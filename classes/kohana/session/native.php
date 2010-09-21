@@ -29,8 +29,19 @@ class Kohana_Session_Native extends Session {
 			session_id($id);
 		}
 
-		// Start the session
-		session_start();
+		try
+		{
+			// Start the session
+			session_start();
+		}
+		catch (ErrorException $e)
+		{
+			// Error reinitialising the session, a usual
+			// culprit being a broken serialized object
+			$this->destroy();
+
+			throw new Kohana_Session_Exception('Corrupt session', array(), 0, $e);
+		}
 
 		// Use the $_SESSION global for storing data
 		$this->_data =& $_SESSION;
