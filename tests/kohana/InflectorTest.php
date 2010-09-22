@@ -60,6 +60,9 @@ class Kohana_InflectorTest extends Kohana_Unittest_TestCase
 			array('meters', 1.0, 'meter'),
 			array('status', NULL, 'status'),
 			array('statuses', NULL, 'status'),
+
+			array('expenses', null, 'expense'),
+			array('responses', null, 'response'),
 		);
 	}
 
@@ -93,6 +96,9 @@ class Kohana_InflectorTest extends Kohana_Unittest_TestCase
 			array('meter', 0.6, 'meters'),
 			array('meter', 1.6, 'meters'),
 			array('meter', 1.0, 'meter'),
+
+			array('expense', null, 'expenses'),
+			array('response', null, 'responses'),
 		);
 	}
 
@@ -107,6 +113,64 @@ class Kohana_InflectorTest extends Kohana_Unittest_TestCase
 	public function test_plural($input, $count, $expected)
 	{
 		$this->assertSame($expected, Inflector::plural($input, $count));
+	}
+
+	public function provider_singular_plural()
+	{
+		return array(
+			array('house', 'houses'),
+			array('powerhouse', 'powerhouses'),
+			array('bus', 'buses'),
+			array('bus', 'buses'),
+			array('menu', 'menus'),
+			array('news', 'news'),
+			array('food menu', 'food menus'),
+			array('menu', 'menus'),
+			array('quiz', 'quizzes'),
+			array('matrix row', 'matrix rows'),
+			array('matrix', 'matrices'),
+			array('vertex', 'vertices'),
+			array('index', 'indices'),
+			array('alias', 'aliases'),
+			array('aliases', 'aliases'),
+			array('media', 'media'),
+			array('alumnus', 'alumni'),
+			array('bacillus', 'bacilli'),
+			array('cactus', 'cacti'),
+			array('focus', 'foci'),
+			array('fungus', 'fungi'),
+			array('nucleus', 'nuclei'),
+			array('octopus', 'octopuses'),
+			array('radius', 'radii'),
+			array('stimulus', 'stimuli'),
+			array('syllabus', 'syllabi'),
+			array('terminus', 'termini'),
+			array('virus', 'viruses'),
+			array('person', 'people'),
+			array('glove', 'gloves'),
+			array('dove', 'doves'),
+			array('life', 'lives'),
+			array('knife', 'knives'),
+			array('wolf', 'wolves'),
+			array('shelf', 'shelves'),
+			array('', ''),
+		);
+	}
+
+	/**
+	 * @dataProvider provider_singular_plural
+	 */
+	public function test_singular_to_plural($singular, $plural)
+	{
+		$this->assertSame($plural, Inflector::plural($singular));
+	}
+
+	/**
+	 * @dataProvider provider_singular_plural
+	 */
+	public function test_plural_to_singular($singular, $plural)
+	{
+		$this->assertSame($singular, Inflector::singular($plural));
 	}
 
 	/**

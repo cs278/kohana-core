@@ -103,6 +103,10 @@ class Kohana_Inflector {
 			// http://en.wikipedia.org/wiki/Plural_form_of_words_ending_in_-us
 			// Already singular, do nothing
 		}
+		elseif (substr($str, -4) === 'nses')
+		{
+			$str = substr($str, 0, -1);
+		}
 		elseif (preg_match('/[sxz]es$/', $str) OR preg_match('/[^aeioudgkprt]hes$/', $str))
 		{
 			// Remove "es"
