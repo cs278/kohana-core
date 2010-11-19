@@ -45,8 +45,18 @@ class Kohana_Config_File extends Kohana_Config_Reader {
 
 			foreach ($files as $file)
 			{
-				// Merge each file to the configuration array
-				$config = Arr::merge($config, Kohana::load($file));
+				$result = Kohana::load($file);
+
+				if ($result instanceof Closure)
+				{
+					// Closure method should handle the merging
+					$config = $result($config);
+				}
+				else if (is_array($result))
+				{
+					// Merge each file to the configuration array
+					$config = Arr::merge($config, $result);
+				}
 			}
 		}
 
